@@ -3,22 +3,11 @@ import paramiko
 from sshtunnel import SSHTunnelForwarder
 import pandas as pd
 from os.path import expanduser
-from query_blipzi_com import query_blipzi_com
+from sql_query import query_blipzi_com
 from project_properties import DB_CONFIG
 
-SSH_HOST = 'ca.b.7gra.us'
-SSH_USER = 'ubuntu'
-SSH_PORT = 22
-DB_HOST = '127.0.0.1'
-DB_PORT = 3306
-DB_USER = 'blipzi'
-DB_PASS = 'Rh*t7t969vCF#v9JuzVR'
-DB_NAME = 'blipzi_v1'
-SQL_PORT = 3306
 path = '/.ssh/id_rsa'
-
 home_dir = expanduser('~')
-
 key_ssh = paramiko.RSAKey.from_private_key_file(home_dir + path)
 
 
@@ -28,14 +17,17 @@ class MySqlDataRequest:
         self.key = key
 
     def data_request(self, ssh_host: str, ssh_port: str,
-                     ssh_user: str, db_user: str, db_pass: str, db_name: str, query: str):
+                     ssh_user: str, db_user: str,
+                     db_host: str, db_pass: str,
+                     db_name: str, sql_port: str,
+                     query: str):
         with SSHTunnelForwarder((ssh_host, ssh_port),
                                 ssh_username=ssh_user,
                                 ssh_pkey=self.key,
-                                remote_bind_address=(DB_HOST, SQL_PORT)) as tunnel:
+                                remote_bind_address=(db_host, sql_port)) as tunnel:
             client = pymysql.connect(user=db_user,
                                      password=db_pass,
-                                     host=DB_HOST,
+                                     host=db_host,
                                      port=tunnel.local_bind_port,
                                      database=db_name,
                                      connect_timeout=60,
@@ -54,8 +46,8 @@ class MySqlDataRequest:
 
 
 client_mysql = MySqlDataRequest(key=key_ssh)
-client_mysql.data_request(ssh_host=DB_CONFIG['blipzi']['SSH_HOST'],
-                          db_user=DB_CONFIG['blipzi']['DB_USER'],
-                          db_pass=DB_CONFIG['blipzi']['DB_PASS'],
-                          db_name=DB_CONFIG['blipzi']['DB_NAME'],
+client_mysql.data_request(ssh_host=DB_CONFIG['blipzi']['SSH_HOST'], ssh_port=DB_CONFIG['blipzi']['SSH_PORT'],
+                          ssh_user=DB_CONFIG['blipzi']['SSH_USER'], db_user=DB_CONFIG['blipzi']['DB_USER'],
+                          db_host=DB_CONFIG['blipzi']['DB_HOST'], db_pass=DB_CONFIG['blipzi']['DB_PASS'],
+                          db_name=DB_CONFIG['blipzi']['DB_NAME'], sql_port=DB_CONFIG['blipzi']['SQL_PORT'],
                           query=query_blipzi_com)

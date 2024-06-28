@@ -18,3 +18,11 @@ DB_CONFIG = {
         'DB_NAME': 'blipzi_v1',
         'SQL_PORT': 3306}
 }
+
+BQ_CONFIG = {
+    'SERVICE_ACCOUNT_FILE': '/Users/nunoseica/Downloads/ad_manager_key.json',
+    'PROJECT': 'analytics-341715',
+    'PROD_DATASET': 'Group_Content_Creators',
+    'PROD_TABLE': 'Content_Production',
+    'WRITE_DISPOSITION': ['WRITE_TRUNCATE', 'WRITE_APPEND']
+}
