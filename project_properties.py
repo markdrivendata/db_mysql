@@ -327,19 +327,3 @@ BQ_CONFIG = {
     'PROD_TABLE': 'Content_Production',
     'WRITE_DISPOSITION': ['WRITE_TRUNCATE', 'WRITE_APPEND']
 }
-
-db_config = {
-
-    'blipzi_com': {
-        'SSH_HOST': 'ca.b.7gra.us',
-        'SSH_USER': 'ubuntu',
-        'SSH_PORT': 22,
-        'DB_HOST': '127.0.0.1',
-        'DB_PORT': 3306,
-        'DB_USER': 'blipzi',
-        'DB_PASS': 'Rh*t7t969vCF#v9JuzVR',
-        'DB_NAME': 'blipzi_v1',
-        'SQL_PORT': 3306}
-}
-for i in DB_CONFIG:
-    print(DB_CONFIG[i]['SSH_HOST'])

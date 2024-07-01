@@ -1,37 +1,6 @@
-query_4gnews_pt = f"""
+QUERIES = {
+    'bibliaon_com': f"""
         SELECT
-            YEAR(date_published) AS year,
-            MONTH(date_published) AS month,
-            COUNT(id) AS number_articles,
-            '4gnews.pt' AS product,
-            'articles' AS content_type,
-            'New content' AS content_freshness
-        FROM
-            articles
-        WHERE 
-            status = 'online'
-        GROUP BY
-            YEAR(date_published),
-            MONTH(date_published)
-        UNION ALL
-        SELECT
-            YEAR(date_updated) AS year,
-            MONTH(date_updated) AS month,
-            COUNT(IF(DATEDIFF(date_updated,date_published) > 0, id, NULL)) AS number_articles,
-            '4gnews.pt' AS product,
-            'articles' AS content_type,
-            'Update existing content' AS content_freshness
-        FROM
-            articles 
-        WHERE 
-            status = 'online' AND date_updated IS NOT NULL
-        GROUP BY
-            YEAR(date_updated),
-            MONTH(date_updated)
-"""
-
-query_bibliaon_com = f"""
-SELECT
             YEAR(data_publicacao) AS year,
             MONTH(data_publicacao) AS month,
             COUNT(id) AS number_articles,
@@ -90,10 +59,10 @@ SELECT
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_calendarr_com = f"""
-SELECT
+    'calendarr_com': f"""
+            SELECT
                 YEAR(data_atualizacao) AS year,
                 MONTH(data_atualizacao) AS month,
                 COUNT(IF(DATEDIFF(data_atualizacao, data_publicacao) > 0, id, NULL)) AS number_articles,
@@ -154,10 +123,10 @@ SELECT
                 YEAR(date_updated),
                 MONTH(date_updated),
                 IF(seo_url IS NULL, 'Date without description', 'Date with description')
-"""
+""",
 
-query_culturagenial_com = f"""
-SELECT
+    'culturagenial_com': f"""
+        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
             COUNT(id) AS number_articles,
@@ -186,10 +155,10 @@ SELECT
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_culturagenial_com_es = f"""
-SELECT
+    'culturagenial_com_es': f"""
+        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
             COUNT(id) AS number_articles,
@@ -218,10 +187,10 @@ SELECT
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_cumplegenial_com = f"""
-SELECT
+    'cumplegenial_com': f"""
+        SELECT
             YEAR(date_updated) AS year,
             MONTH(date_updated) AS month,
             COUNT(IF(DATEDIFF(date_updated,date_published) > 0, id, NULL)) AS number_articles,
@@ -280,10 +249,10 @@ SELECT
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_dicio_com_br = f"""
-  SELECT
+    'dicio_com_br': f"""
+        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
             COUNT(id) AS number_articles,
@@ -372,9 +341,9 @@ query_dicio_com_br = f"""
         GROUP BY
             YEAR(dtupdate),
             MONTH(dtupdate)
-"""
+""",
 
-query_dicionarionomesproprios_com_br = f"""
+    'dicionarionomesproprios_com_br': f"""
         SELECT
             YEAR(data_publicacao) AS year,
             MONTH(data_publicacao) AS month,
@@ -434,10 +403,10 @@ query_dicionarionomesproprios_com_br = f"""
         GROUP BY
             YEAR(dtinsert),
             MONTH(dtinsert)
-"""
+""",
 
-query_dicionariopopular_com = f"""
-    SELECT
+    'dicionariopopular_com': f"""
+        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
             COUNT(id) AS number_articles,
@@ -466,9 +435,9 @@ query_dicionariopopular_com = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_happybirthdaywisher_com = f"""
+    'happybirthdaywisher_com': f"""
         SELECT
             YEAR(date_updated) AS year,
             MONTH(date_updated) AS month,
@@ -559,9 +528,9 @@ query_happybirthdaywisher_com = f"""
             YEAR(date_updated),
             MONTH(date_updated)
 
-"""
+""",
 
-query_jogos360_com_br = f"""
+    'jogos360_com_br': f"""
         SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -606,9 +575,9 @@ query_jogos360_com_br = f"""
         GROUP BY
             YEAR(date_created),
             MONTH(date_created)
-"""
+""",
 
-query_ligadosgames_com = f"""
+    'ligadosgames_com': f"""
        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -638,9 +607,9 @@ query_ligadosgames_com = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_mensagem_aniversario_com_br = f"""
+    'mensagemaniversario_com_br': f"""
        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -700,9 +669,9 @@ query_mensagem_aniversario_com_br = f"""
         GROUP BY
             YEAR(date_update),
             MONTH(date_update)
-"""
+""",
 
-query_mundodasmensagens_com = f"""
+    'mundodasmensagens_com': f"""
         SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -792,9 +761,9 @@ query_mundodasmensagens_com = f"""
         GROUP BY
             YEAR(data_publicado),
             MONTH(data_publicado)
-"""
+""",
 
-query_pensador_com = f"""
+    'pensador_com': f"""
         SELECT
             YEAR(data_criacao) AS year,
             MONTH(data_criacao) AS month,
@@ -854,9 +823,9 @@ query_pensador_com = f"""
         GROUP BY
             YEAR(dtupdate),
             MONTH(dtupdate)
-"""
+""",
 
-query_significados_com_br = f"""
+    'significados_com_br': f"""
         SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -886,9 +855,9 @@ query_significados_com_br = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_sinonimos_com_br = f"""
+    'sinonimos_com_br': f"""
        SELECT
             YEAR(dt) AS year,
             MONTH(dt) AS month,
@@ -902,9 +871,9 @@ query_sinonimos_com_br = f"""
             YEAR(dt),
             MONTH(dt),
             IF(revisado = 0, 'New content', 'Update existing content')
-"""
+""",
 
-query_bibliaon_com_es = f"""
+    'bibliaon_com_es': f"""
         SELECT
             YEAR(date_updated) AS year,
             MONTH(date_updated) AS month,
@@ -949,9 +918,9 @@ query_bibliaon_com_es = f"""
         GROUP BY
             YEAR(date_published),
             MONTH(date_published)
-"""
+""",
 
-query_todamateria_com_br = f"""
+    'todamateria_com_br': f"""
         SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -981,9 +950,9 @@ query_todamateria_com_br = f"""
         GROUP BY
             YEAR(date_modified),
             MONTH(date_modified)
-"""
+""",
 
-query_juegosarea_com = f"""
+    'juegosarea_com': f"""
        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1028,9 +997,8 @@ query_juegosarea_com = f"""
         GROUP BY
             YEAR(date_created),
             MONTH(date_created)
-"""
-
-query_eutotal_com = f"""
+""",
+    'eutotal_com': f"""
        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1060,9 +1028,9 @@ query_eutotal_com = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_ebiografia_com = f"""
+    'ebiografia_com': f"""
      SELECT
             YEAR(data_publicacao) AS year,
             MONTH(data_publicacao) AS month,
@@ -1092,9 +1060,9 @@ query_ebiografia_com = f"""
         GROUP BY
             YEAR(data_atualizacao),
             MONTH(data_atualizacao)
-"""
+""",
 
-query_significados_com = f"""
+    'significados_com': f"""
         SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1125,9 +1093,9 @@ query_significados_com = f"""
             YEAR(date_updated),
             MONTH(date_updated)
 
-"""
+""",
 
-query_techshake_com = f"""
+    'techshake_com': f"""
        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1157,9 +1125,9 @@ query_techshake_com = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_sinonimosonline_com = f"""
+    'sinonimosonline_com': f"""
         SELECT
             YEAR(dt) AS year,
             MONTH(dt) AS month,
@@ -1173,9 +1141,9 @@ query_sinonimosonline_com = f"""
             YEAR(dt),
             MONTH(dt),
             IF(revisado = 0, 'New content', 'Update existing content')
-"""
+""",
 
-query_maioresemelhores_com = f"""
+    'maioresemelhores_com': f"""
         SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1235,9 +1203,9 @@ query_maioresemelhores_com = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_bibliaon_com_en = f"""
+    'bibliaon_com_en': f"""
         SELECT
             YEAR(date_updated) AS year,
             MONTH(date_updated) AS month,
@@ -1282,10 +1250,9 @@ query_bibliaon_com_en = f"""
         GROUP BY
             YEAR(date_published),
             MONTH(date_published)
-"""
+""",
 
-
-query_ligadegamers_com = f"""
+    'ligadegamers_com': f"""
        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1315,9 +1282,9 @@ query_ligadegamers_com = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_appgeek_com_br = f"""
+    'appgeek_com_br': f"""
        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1347,9 +1314,9 @@ query_appgeek_com_br = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_todamateria_com = f"""
+    'todamateria_com': f"""
         SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1379,9 +1346,9 @@ query_todamateria_com = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-query_superaficionados_com = f"""
+    'superaficionados_com': f"""
        SELECT
             YEAR(date_published) AS year,
             MONTH(date_published) AS month,
@@ -1411,9 +1378,9 @@ query_superaficionados_com = f"""
         GROUP BY
             YEAR(date_updated),
             MONTH(date_updated)
-"""
+""",
 
-QUERIES = {'blipzi_com': f"""
+    'blipzi_com': f"""
            SELECT
                 YEAR(date_published) AS year,
                 MONTH(date_published) AS month,
@@ -1459,5 +1426,3 @@ QUERIES = {'blipzi_com': f"""
                 YEAR(date_created),
                 MONTH(date_created)
                     """}
-
-print(QUERIES['blipzi_com'])

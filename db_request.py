@@ -22,19 +22,30 @@ class MySqlDataRequest:
                                      host=db_host,
                                      port=tunnel.local_bind_port,
                                      database=db_name,
-                                     connect_timeout=60,
-                                     read_timeout=60)
+                                     connect_timeout=90,
+                                     read_timeout=90)
             cursor = client.cursor()
             cursor.execute(query)
             rows = cursor.fetchall()
             header = [i[0] for i in cursor.description]
 
-            df = pd.DataFrame(rows, columns=header)
+            dataframe = pd.DataFrame(rows, columns=header)
+            # Data transformations
+            df = dataframe.rename(columns={'number_articles': 'content_totals'})
+            df.fillna(0)
+            df['year'] = df['year'].astype('str')
+            df['year'] = df['year'].replace('nan', '0')
+            df['year'] = pd.to_numeric(df['year'])
+            df['year'] = df['year'].astype('int')
+            df['month'] = df['month'].astype('str')
+            df['month'] = df['month'].str.replace('nan', '1')
+            df['month'] = pd.to_numeric(df['month'])
+            df['month'] = df['month'].astype('int')
 
             cursor.close()
             client.close()
 
-        return print(df)
+        return df
 
 
 
