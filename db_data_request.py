@@ -4,14 +4,14 @@ from sshtunnel import SSHTunnelForwarder
 import pandas as pd
 from os.path import expanduser
 
-SSH_HOST= 'ca.x.7gra.us'
-SSH_USER= 'ubuntu'
-SSH_PORT= 22
-DB_HOST='127.0.0.1'
-SQL_PORT= 3306
-DB_USER= 'appgeek'
-DB_PASS= 'LY8Beg8ascQkXY'
-DB_NAME = 'appgeek'
+SSH_HOST = 'fr.d.7gra.us'
+SSH_USER = 'ubuntu'
+SSH_PORT = 22
+DB_HOST = '127.0.0.1'
+SQL_PORT = 3306
+DB_USER = '4gnews'
+DB_PASS = 'TJ4Dhw9p6GGysUk5'
+DB_NAME = '4gnews'
 path = '/.ssh/id_rsa'
 
 home_dir = expanduser('~')

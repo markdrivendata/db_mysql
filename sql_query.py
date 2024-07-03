@@ -353,7 +353,7 @@ QUERIES = {
             'New content' AS content_freshness
         FROM
             artigos
-        WHERE
+        WHER
             estado LIKE 'online'
         GROUP BY
             YEAR(data_publicacao),
