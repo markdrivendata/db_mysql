@@ -12,7 +12,7 @@ class MySqlDataRequest:
                      ssh_user: str, db_user: str,
                      db_host: str, db_pass: str,
                      db_name: str, sql_port: str,
-                     query: str):
+                     query: str) -> pd.DataFrame:
         with SSHTunnelForwarder((ssh_host, ssh_port),
                                 ssh_username=ssh_user,
                                 ssh_pkey=self.key,

@@ -1,4 +1,35 @@
 QUERIES = {
+    '4gnews_pt': f"""
+        SELECT
+            YEAR(date_published) AS year,
+            MONTH(date_published) AS month,
+            COUNT(id) AS number_articles,
+            '4gnews.pt' AS product,
+            'articles' AS content_type,
+            'New content' AS content_freshness
+        FROM
+            articles
+        WHERE 
+            status = 'online'
+        GROUP BY
+            YEAR(date_published),
+            MONTH(date_published)
+        UNION ALL
+        SELECT
+            YEAR(date_updated) AS year,
+            MONTH(date_updated) AS month,
+            COUNT(IF(DATEDIFF(date_updated,date_published) > 0, id, NULL)) AS number_articles,
+            '4gnews.pt' AS product,
+            'articles' AS content_type,
+            'Update existing content' AS content_freshness
+        FROM
+            articles 
+        WHERE 
+            status = 'online' AND date_updated IS NOT NULL
+        GROUP BY
+            YEAR(date_updated),
+            MONTH(date_updated)
+""",
     'bibliaon_com': f"""
         SELECT
             YEAR(data_publicacao) AS year,
@@ -353,7 +384,7 @@ QUERIES = {
             'New content' AS content_freshness
         FROM
             artigos
-        WHER
+        WHERE
             estado LIKE 'online'
         GROUP BY
             YEAR(data_publicacao),

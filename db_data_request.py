@@ -7,7 +7,7 @@ from os.path import expanduser
 SSH_HOST = 'fr.d.7gra.us'
 SSH_USER = 'ubuntu'
 SSH_PORT = 22
-DB_HOST = '127.0.0.1'
+DB_HOST = 'localhost'
 SQL_PORT = 3306
 DB_USER = '4gnews'
 DB_PASS = 'TJ4Dhw9p6GGysUk5'

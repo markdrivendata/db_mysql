@@ -4,7 +4,6 @@ from project_properties import BQ_CONFIG
 
 data = pd.read_csv('/Users/nunoseica/Downloads/query_result.csv', names=['year', 'month', 'content_totals',
                                                                          'product', 'content_type', 'content_freshness'])
-print(data)
 
 
 def main(df):
